@@ -5,6 +5,6 @@ const humiditySchema = new mongoose.Schema({
     date: Date
 });
 
-const Humidity = mongoose.model('humidity', humiditySchema);
+const Humidity = mongoose.model('humidityModel', humiditySchema, 'humidity');
 
-export default Humidity;
+module.exports = Humidity;

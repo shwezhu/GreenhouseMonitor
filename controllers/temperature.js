@@ -2,9 +2,9 @@ const Temperature = require('../models/temperature');
 
 const getTemperature = async (req, res) => {
     try {
-        const temperature = await Temperature.find();
+        const results = await Temperature.find({limit: 20});
 
-        res.status(200).json(temperature);
+        res.status(200).json(results);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
@@ -12,11 +12,11 @@ const getTemperature = async (req, res) => {
 
 const createTemperature = async (req, res) => {
     const { value, date } = req.body;
-    const newTemperature = new Temperature({ value, date });
+    const temperature = new Temperature({ value, date });
     try {
-        await newTemperature.save();
+        await temperature.save();
 
-        res.status(201).json(newTemperature);
+        res.status(201).json(temperature);
     } catch (error) {
         res.status(409).json({ message: error.message });
     }
