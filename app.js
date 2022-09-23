@@ -17,7 +17,6 @@ app.use(cors());
 /** Routing, design endpoint **/
 app.get('/temperature', getTemperature);
 app.post('/temperature', createTemperature);
-// console.log(Object.keys(req.query).length);
 app.get('/humidity', getHumidity);
 app.post('/humidity', createHumidity);
 
