@@ -5,8 +5,7 @@
 const MODEL_PATH = './node_modules/';
 const express = require(MODEL_PATH + 'express');
 const mongoose = require(MODEL_PATH + 'mongoose');
-const {getTemperature, createTemperature} = require('./controllers/temperature');
-const {getHumidity, createHumidity} = require('./controllers/humidity');
+const {getData, createData} = require("./controllers/controller");
 
 /** Add middleware functions **/
 const app = express();
@@ -20,10 +19,18 @@ app.use((err, req, res, next) => {
 });
 
 /** Routing, design endpoint **/
-app.get('/temperature', getTemperature);
-app.post('/temperature', createTemperature);
-app.get('/humidity', getHumidity);
-app.post('/humidity', createHumidity);
+app.get('/temperature', async (req, res) => {
+    return getData(req, res, 'temperature');
+});
+app.post('/temperature', async (req, res) => {
+    return createData(req, res, 'temperature');
+});
+app.get('/humidity', async (req, res) => {
+    return getData(req, res, 'humidity');
+});
+app.post('/humidity', async (req, res) => {
+    return createData(req, res, 'humidity');
+});
 
 /** Connect database and run server**/
 main().catch(err => console.log(err));

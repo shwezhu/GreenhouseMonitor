@@ -1,6 +1,7 @@
 const Temperature = require('../models/temperature');
+const Humidity = require('../models/humidity');
 
-const getTemperature = async (req, res) => {
+const getData = async (req, res, type) => {
     const { startDate, endDate } = req.query;
 
     if(startDate === '' || endDate === '') {
@@ -10,16 +11,26 @@ const getTemperature = async (req, res) => {
         })
     }
 
+    let model;
+    if(type === 'temperature') {
+        model = Temperature;
+    } else {
+        model = Humidity;
+    }
+
     let results;
     try {
-        results = await Temperature.find({
+        results = await model.find({
             create_date: {
                 $gte: new Date(new Date(startDate).setHours(0, 0, 0)),
                 $lt: new Date(new Date(endDate).setHours(23, 59, 59))
             }
         }).sort({ date: 'asc'});
     } catch (error) {
-        res.status(404).json({ message: error.message });
+        res.status(404).json({
+            status: 'failure',
+            message: error.message
+        });
     }
 
     if(results.length === 0) {
@@ -35,7 +46,7 @@ const getTemperature = async (req, res) => {
     });
 }
 
-const createTemperature = async (req, res) => {
+const createData = async (req, res, type) => {
     // when use req.body, you have to write app.use(express.json()); in app.js first
     const value = req.body.value;
     if(value === undefined) {
@@ -45,9 +56,16 @@ const createTemperature = async (req, res) => {
         })
     }
 
+    let model;
     const create_date = new Date();
+    if (type === 'temperature') {
+        model = new Temperature({value, create_date});
+    } else {
+        model = new Humidity({value, create_date});
+    }
+
     try {
-        await new Temperature({ value, create_date }).save();
+        await model.save();
         res.status(201).json({
             status: 'success'
         });
@@ -60,6 +78,6 @@ const createTemperature = async (req, res) => {
 }
 
 module.exports = {
-    getTemperature,
-    createTemperature
+    getData,
+    createData
 }
