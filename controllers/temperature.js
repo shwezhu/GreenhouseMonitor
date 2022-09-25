@@ -36,7 +36,7 @@ const getTemperature = async (req, res) => {
 }
 
 const createTemperature = async (req, res) => {
-    // when use req.body, you have to write app.use(cors()); in app.js first
+    // when use req.body, you have to write app.use(express.json()); in app.js first
     const value = req.body.value;
     if(value === undefined) {
         return res.status(400).json({
@@ -46,12 +46,16 @@ const createTemperature = async (req, res) => {
     }
 
     const create_date = new Date();
-    const temperature = new Temperature({ value, create_date });
     try {
-        await temperature.save();
-        res.status(201).json(temperature);
+        await new Temperature({ value, create_date }).save();
+        res.status(201).json({
+            status: 'success'
+        });
     } catch (error) {
-        res.status(409).json({ message: error.message });
+        res.status(500).json({
+            status: 'failure',
+            message: error.message
+        });
     }
 }
 
