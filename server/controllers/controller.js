@@ -77,7 +77,4 @@ const createData = async (req, res, type) => {
     }
 }
 
-module.exports = {
-    getData,
-    createData
-}
+module.exports = {getData, createData}
