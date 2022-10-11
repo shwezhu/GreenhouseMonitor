@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Greenhouse Dashboard</title>
+    <link rel="stylesheet" href="index.css">
+    <!--defer, make JavaScript execute after page load-->
+    <script src="index.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <!--You have to use this adapter, otherwise ChatJS with time axis won't work.-->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+</head>
+
+<body>
+<div class="mainArea">
+    <h2>Greenhouse Monitor</h2>
+    <canvas id="chart"></canvas>
+</div>
+<div class="tempArea">
+    <h3>Temperature</h3>
+    <div class="form">
+        <form id="tempForm">
+            <label>
+                <input id="tempStartDate" type="date" required/>
+                to <input id="tempEndDate" type="date" required/>
+            </label>
+            <input id="tempButton" type="submit" value="Search" />
+        </form>
+    </div>
+    <canvas id="tempChart"></canvas>
+</div>
+<div class="humArea">
+    <h3>Humidity</h3>
+    <div class="form">
+        <form id="humForm">
+            <label>
+                <input id="humStartDate" type="date" required/>
+                to <input id="humEndDate" type="date" required/>
+            </label>
+            <input id="humButton" type="submit" value="Search" />
+        </form>
+    </div>
+    <canvas id="humChart"></canvas>
+</div>
+
+</body>
+</html>

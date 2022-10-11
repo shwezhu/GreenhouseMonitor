@@ -27,7 +27,7 @@ const getData = async (req, res, type) => {
             }
         }).sort({ date: 'asc'});
     } catch (error) {
-        res.status(404).json({
+        return res.status(404).json({
             status: 'failure',
             message: error.message
         });
@@ -40,14 +40,14 @@ const getData = async (req, res, type) => {
         })
     }
 
-    res.status(200).json({
+    return res.status(200).json({
         status:'success',
-        data: results
+        results: results
     });
 }
 
 const createData = async (req, res, type) => {
-    // when use req.body, you have to write app.use(express.json()); in app.js first
+    // when use req.body, you have to write app.use(express.json()); in cpp.js first
     const value = req.body.value;
     if(value === undefined) {
         return res.status(400).json({

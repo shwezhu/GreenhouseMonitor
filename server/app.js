@@ -5,6 +5,7 @@
 const MODEL_PATH = './node_modules/';
 const express = require(MODEL_PATH + 'express');
 const mongoose = require(MODEL_PATH + 'mongoose');
+const cors = require(MODEL_PATH + 'cors')
 const {getData, createData} = require("./controllers/controller");
 
 /** Add middleware functions **/
@@ -17,6 +18,9 @@ app.use((err, req, res, next) => {
     }
     next();
 });
+// You have to use this, when you use html/js to fetch data, otherwise, your client will get an error
+// Error: Origin http://localhost:63342 is not allowed by Access-Control-Allow-Origin.
+app.use(cors());
 
 /** Routing, design endpoint **/
 app.get('/temperature', async (req, res) => {
@@ -35,8 +39,9 @@ app.post('/humidity', async (req, res) => {
 /** Connect database and run server**/
 main().catch(err => console.log(err));
 
+const PORT = process.env.PORT || 3001;
 async function main() {
     await mongoose.connect('mongodb://localhost:27017/greenhouse');
-    app.listen(3000, () => console.log('start listening...'));
+    app.listen(PORT, () => console.log('start listening...'));
 }
 
