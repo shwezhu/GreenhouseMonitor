@@ -1,5 +1,4 @@
-# Client
-
+# 1. Client
 ---
 
 LineCharts are drawn by ChartJS in plain Javascript. Support adjust x-axis automatically with time changing.
@@ -8,8 +7,7 @@ Get data from database in Node.JS.
 
 <img width="1440" alt="Screen Shot 2022-10-11 at 15 51 43" src="https://user-images.githubusercontent.com/54054395/195032652-b04981cb-ef98-4486-9c41-b2b5293b607e.png">
 
-# Server
-
+# 2. Server
 ---
 
 
@@ -24,7 +22,7 @@ Using Mongodb database with Node.JS, Express.JS...
 
 <img width="1277" alt="url" src="https://user-images.githubusercontent.com/54054395/196470769-3100c0c4-efbf-4d4a-8ea6-55ef94d2e544.png">
 
-## Run server
+## 2.1. Run server
 ```shell
 cd GreenhouseMonitor/server/
 # install dependencies
@@ -33,7 +31,7 @@ npm install
 npm start
 ```
 
-## Test
+## 2.2. Test
 ```shell
 # get data 
 curl -X GET "localhost:3001/temperature/?startDate=2022-09-20&endDate=2022-09-30"
